@@ -27,8 +27,15 @@ function App() {
     // call the Pyth Contract with this data.
     const priceUpdateData = await connection.getPriceFeedsUpdateData(priceIds);
 
-    console.log(priceUpdateData);
     setState(priceUpdateData)
+    console.log(`["${priceUpdateData[0]}", "${priceUpdateData[1]}"]`);
+
+    var data = new Blob([`["${priceUpdateData[0]}", "${priceUpdateData[1]}"]`], {type: 'text/plain'});
+    var csvURL = window.URL.createObjectURL(data);
+    var tempLink = document.createElement('a');
+    tempLink.href = csvURL;
+    tempLink.setAttribute('download', 'filename.txt');
+    tempLink.click();
   }
 
   return (
